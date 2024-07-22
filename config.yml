@@ -1,0 +1,20 @@
+!!com.softit.smedia.model.ConfigData
+activeFluxRss: false
+bannerColor: '#ff80ff'
+bannerTextColor: '#0000a0'
+baseDirMedia: null
+bkpDirMedia: null
+checkPlayListTime: '4'
+delecteBackupDirTime: null
+fluxjson: null
+idAgence: 192.168.0.10
+ipBorne: null
+optionTimer: heures
+playlistjsongloabal: null
+refleshFluxRss: '1'
+serverDir: null
+subUrlServeurMedia: null
+timer_borne_check: 0
+tmpDirMedia: null
+urlServeurMedia: http://localhost
+volume: 0.0

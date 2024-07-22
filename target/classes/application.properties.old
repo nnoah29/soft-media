@@ -1,0 +1,60 @@
+server.port=83
+server.http.port=999
+#https config
+server.ssl.enabled=false
+server.ssl.key-alias=test
+server.ssl.key-password=Softit123
+server.ssl.key-store=classpath:testb.jks
+server.ssl.key-store-provider=SUN
+server.ssl.key-store-type=JKS
+server.ssl.key-store-password=Softit123
+keystore.file=test.jks
+keystore.pass=Softit123
+#Qsolo serveur param
+urlServeurMedia=https://192.168.0.111
+subUrlServeurMedia=/softmediaserverv2.0.0/media/
+#subUrlServeurMedia = /qmatic_client_solo/media/
+baseDirMedia=media/
+tmpDirMedia=tmp/
+bkpDirMedia=backup/
+playlistjsonmedia=playlist
+playlistjsongloabal=global
+idAgence=10.10.10.1
+serverDir=softmediaserverv2.0.0
+#Temps de verification de disponibilité de nouvelle playList
+#checkPlayListTime= **/60 * * * * *"  tous les soixantes secondes
+#************************************** Volume de la video entre 0 à 1 ****************************
+volume=0.25
+
+
+#tous les deux heure
+delecteBackupDirTime=0 0 */24 ? * *
+checkPlayListTime=0 */1 * ? * *
+#checkPlayListTime= 0/60 0 0/2 ? * * *
+#Rest Url
+#smrest.verify=/rest/RestController.php?view=verify&idPl={idplaylist}&idAgence={idAgence}
+#smrest.getallplaylist=/rest/RestController.php?view=display&idPl={idplaylist}&idAgence={idAgence}
+smrest.verify=/rest/checkNew/{idplaylist}/{idAgence}
+smrest.getallplaylist=/rest/getPublication/{idplaylist}/{idAgence}
+smrest.receipt_playlist=/rest/receiptPublication/{idplaylist}/{idAgence}/{status}/{dateDebut}/{dateFin}
+smrest.receipt_media=/rest/receiptPublication/{idplaylist}/{idAgence}/{status}/{dateDebut}/{dateFin}/{fileName}
+smrest.fluxRss=/rest/getFluxRss
+#soft media sans solo
+# taille du banner en pixel
+banner_font_size=50
+# position du banner  haut ou bas
+banner_position=haut
+#****** update 19/04/2018 *****/
+spring.thymeleaf.mode=LEGACYHTML5
+# Adresse ip de la borne
+ipBorne=192.168.0.11
+# l'heure d'ouverture
+hours_open_day=8
+# l'heure de fermeture dans la semaine
+hours_close_day=17
+# l'heure d'ouverture  weekend samedi
+hours_open_week=9
+# l'heure de fermeture dans la semaine
+hours_close_week=13
+#t Temps de checking
+timer_check=100  # minute 

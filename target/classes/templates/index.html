@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>SOFT Media Player</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styleIndex.css}"
+          href="../../css/styleIndex.css"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial;
+            font-size: 17px;
+        }
+
+        #video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        .content {
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
+        }
+
+        #myBtn {
+            width: 200px;
+            font-size: 18px;
+            padding: 10px;
+            border: none;
+            background: #000;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #myBtn:hover {
+            background: #ddd;
+            color: black;
+        }
+    </style>
+    <script src="../plugins/jQuery/jQuery-2.2.0.min.js" th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+    <script src="/sockjs.js"></script>
+    <script src="/stomp.js"></script>
+    <!--<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>-->
+    <script src="/App.js"></script>
+    <!--<style th:inline="css">
+        /*<![CDATA[*/
+        #banner {
+            font-size: /*[[${banner_font_size}]]*/;
+        }
+        /*]]>*/
+    </style>--><!--
+    <style th:inline="css">
+        .[[${classname}]] {
+            text-align: [[${align}]];
+        }
+    </style>-->
+    <!--<link rel="stylesheet" th:href="@{/css/style.css}">-->
+    <!--<link rel="stylesheet" href="../static/style.css">-->
+</head>
+
+<body>
+<noscript><h2 style="color: #ff0000">Votre navigateur ne supporte pas Javascript! Websocket s'appuie sur Javascript
+         activée. S'il vous plaît activer
+         Javascript et rechargez cette page!</h2></noscript>
+<video id="video" autoplay="true"></video>
+<!--<div style="background-color: #008800" class="row">
+    <div style="color: red; background-color: #008800; font-size: 15px" class="col-md-12 text-md-right">
+        text-md-right
+    </div>
+    <div class="col-md-12 text-md-center">
+        text-md-center
+    </div>
+</div>-->
+<div class="content" id="fluxRss">
+    <h1 id="title">Heading</h1>
+
+    <marquee style="height: 7em;" id="contenu" scrolldelay="1500" truespeed direction="up"></marquee>
+    <!-- Use a button to pause/play the video with JavaScript -->
+    <!--<button id="myBtn" onclick="myFunction()">Pause</button>-->
+</div>
+<!--<h1>Hello</h1>
+<h2>KOYAJA Dev</h2>-->
+
+
+<div th:style=" ${'background :'+ bannerColor+ '; color :' + bannerTextColor}" class="bannerContenaire">
+
+
+    <marquee id="banner" style="
+    font-size: 50px;
+    font-weight:  bolder;"
+             th:text="${banner}">PACK SALARIA, tout en un, tout compris * Compte chèque *
+        Découvert automatique * Carte
+        de retrait SESAME * B-SMS/B-PHONE
+        *Assurance * PACK SALARIA, tout en un, tout compris, pour 2 600 F CFA / mois. Renseignez-vous dans
+        votre
+        agence
+        BOA
+    </marquee>
+</div>
+
+
+<!--<script src="/webjars/jquery/3.2.1/jquery.min.js"></script>-->
+<script src="/webjars/jquery/2.2.1/jquery.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var video = document.getElementById("video");
+    var volume = /*[[${volume}]]*/ 'default';
+    var fluxReflesh = /*[[${fluxReflesh}]]*/ 'default';
+    var activeflux = /*[[${activeFluxRss}]]*/ 'false';
+    console.log("Volume = " + volume);
+    video.volume = volume;
+    /*]]>*/
+</script>
+<script>
+    var v = document.getElementsByTagName("video")[0];
+    // v.volume = 0.2;
+    var array_videos = []; //Array with video names
+    var index = 0; //Index of video
+    var video = document.getElementById("video"); //Html5 video element
+    var banner = document.getElementById("banner"); //Html5 video element
+    banner_url = '/banner';
+    // var banner = document.getElementById("banner"); //Html5 video element
+    /*$(document).ready(function() {
+
+    });*/
+
+    function readInfo() {
+        $.ajax({
+            url: "/media/list"
+        }).then(function (data) {
+            console.log('data ');
+            console.log(data);
+            array_videos = data;
+            if (array_videos && array_videos.length) {
+                video.src = '/media/video?videoName=' + array_videos[0];
+                console.log("video play")
+            } else {
+                setTimeout(readInfo, 30000);
+                // console.log($('#video').parents())
+                console.log("video liste vide")
+            }
+            // console.log($('#video').parents())
+            // console.log("parent body")
+            // console.log($('body').parents())
+            // console.log("parent document")
+            // console.log($('#document').parents())
+            //console.log(v.parent());
+        });
+
+
+        // banner.innerText="Test de loin";
+    }
+
+    function getFluxRss() {
+        $.ajax({
+            url: "/api/fluxRss"
+        }).then(function (data) {
+            // console.log("Flux Rss")
+            // console.log(data);
+            document.getElementById('title').innerText = data.title;
+            if (data.description != '') {
+                document.getElementById('contenu').innerHTML = data.description;
+            } else {
+
+                document.getElementById('contenu').innerHTML = data.content;
+            }
+            // array_videos = data;
+            // video.src = '/media/video?videoName=' + array_videos[0];
+            // console.log($('#video').parents())
+            // console.log("parent body")
+            // console.log($('body').parents())
+            // console.log("parent document")
+            // console.log($('#document').parents())
+            //console.log(v.parent());
+        });
+    }
+
+    function nextVideo() {
+
+        index++;
+        if (index === array_videos.length) {
+            readInfo();
+            index = 0;
+
+        } else if (array_videos.length === 0) {
+            console.log('pas de video');
+        } else {
+            console.log("array index " + index + array_videos[index]);
+            video.src = '/media/video?videoName=' + array_videos[index];
+        }
+    }
+
+    function loadBanner() {
+        console.log("banner")
+        if (banner_url === undefined) {
+            console.log("ERROR: Banner loaded");
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+
+        try {
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200 || xhr.status == 0) {
+                        // json_global = JSON.parse(xhr.responseText);
+                        // array_videos = json_playlist.videos;
+                        // console.log("banner   " + json_global.banner);
+                        // banner.innerHTML = json_global.banner;
+                        // console.log('banner new ' + xhr.responseText);
+                        banner.innerHTML = xhr.responseText;
+                        //   video.src = 'media/' + array_videos[0];
+                    } else if (xhr.status == 404 || xhr.status == 501) {
+                        // json_global = JSON.parse(xhr.responseText);
+                        // array_videos = json_playlist.videos;
+                        // console.log("banner   " + json_global.banner);
+                        // banner.innerHTML = json_global.banner;
+                        console.log('Error Banner ' + xhr.responseText + xhr.status);
+                        // banner.innerHTML = xhr.responseText;
+                        // var demo = "video"
+                        // demo = "video";
+                        //   video.src = 'media/' + array_videos[0];
+                    } else {
+                        // console.log('Error Banner else ' + xhr.responseText + xhr.status);
+                        banner.innerHTML = xhr.responseText;
+                        // var demo = "video"
+                        // demo = "video";
+                    }
+                }
+            }
+            xhr.onerror = function (e) {
+                console.log('oneerror', e);
+                console.log('Error Banner else ' + e);
+                // banner.innerHTML = xhr.responseText;
+                // var demo = "video"
+                // demo = "video";
+                //alert("Unknown Error Occured. Server response not received.");
+            };
+
+            xhr.open('GET', banner_url, true);
+            xhr.send();
+        } catch (e) {
+            console.log('catch', e);
+            console.log('Error Banner else ' + xhr.responseText + xhr.status);
+            // banner.innerHTML = xhr.responseText;
+            var demo = "video"
+            demo = "video";
+        }
+    }
+
+    function load() {
+        disconnect();
+        readInfo();
+        getFluxRss();
+        video.addEventListener("ended", nextVideo, false);
+        video.addEventListener("error", nextVideo, true);
+        //loadBanner();
+        console.log('active flux ' + activeflux)
+        if (activeflux) {
+
+            var flux = document.getElementById("fluxRss")
+            flux.style.display = "block";
+            setInterval(getFluxRss, 60000 * parseInt(fluxReflesh))
+
+        } else {
+            var flux = document.getElementById("fluxRss")
+            flux.style.display = "none";
+        }
+        setInterval(loadBanner, 60000)
+        connect();
+    }
+
+    window.onload = load;
+</script>
+</body>
+</html>

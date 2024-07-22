@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Solo Media</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/videos.css}"
+          href="../../videos.css"/>
+    <script src="/sockjs.js"></script>
+    <script src="/stomp.js"></script>
+    <!--<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>-->
+    <script src="/App.js"></script>
+    <style>
+        /* body {
+             height: 100%;
+             width: 100%;
+             margin: 0;
+             padding: 0;
+             background: #000;
+             !*overflow: hidden;*!
+         }*/
+
+        /* #video {
+             !*  width: 100%;
+               height: 90%;
+               overflow: hidden;
+               !* personnaliser l'affichage en pleine ecran*!
+               position: fixed;
+               top: 0;
+               right: 0;
+               bottom: 0;
+               left: 0;
+               object-fit: cover;*!
+             width: 100%;
+             height: auto;
+             position: absolute;
+             top: 0;
+             right: 0;
+             bottom: 0;
+             left: 0;
+             margin: auto;
+             max-width: 100%;
+             max-height: 100%;
+             -moz-user-select: none;
+         }*/
+
+
+    </style>
+</head>
+<body>
+<!--<h1>Hello</h1>
+
+<h2>KOYAJA Dev</h2>-->
+<video id="video" autoplay="true"></video>
+<div class="content" id="fluxRss">
+    <h1 id="title">...</h1>
+
+    <marquee style="height: 3em;" id="contenu" scrolldelay="1500" truespeed direction="up"></marquee>
+    <!-- Use a button to pause/play the video with JavaScript -->
+    <!--<button id="myBtn" onclick="myFunction()">Pause</button>-->
+</div>
+<script src="/webjars/jquery/2.2.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/fluxRss.js}"></script>
+<!--<script>
+    (function (window) {
+        'use strict';
+
+        var $ = window.jQuery,
+            supportCORS = (function () {
+                var xhr;
+                if (window.XMLHttpRequest) {
+                    xhr = new window.XMLHttpRequest();
+                    return (xhr.hasOwnProperty && xhr.hasOwnProperty('withCredentials'));
+                }
+            }()),
+            dataType = supportCORS ? 'json' : 'jsonp';
+
+        $.cors = function (url, fn) {
+
+            if (url === undefined) {
+                throw new Error('$.cors: url must be defined');
+            }
+
+            var options = {
+                'type': 'GET',
+                'dataType': dataType
+            };
+
+            if (typeof fn === 'function') {
+                options.success = fn;
+            }
+
+            if (typeof url === 'string') {
+                options.url = url;
+
+            } else if (typeof url === 'object') {
+                $.extend(options, url);
+            }
+
+            $.ajax(options);
+
+            return this;
+        };
+
+    }(this));
+</script>-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var video = document.getElementById("video");
+    var volume = /*[[${volume}]]*/ 'default';
+    var hours_open_day = /*[[${hours_open_day}]]*/ 'default';
+    var hours_close_day = /*[[${hours_close_day}]]*/ 'default';
+    var hours_open_week = /*[[${hours_open_week}]]*/ 'default';
+    var hours_close_week = /*[[${hours_close_week}]]*/ 'default';
+    var ipBorne = /*[[${ipBorne}]]*/ 'default';
+    var timer_check = /*[[${timer_check}]]*/ 'default';
+    var fluxReflesh = /*[[${fluxReflesh}]]*/ 'default';
+    var activeflux = /*[[${activeFluxRss}]]*/ 'false';
+    console.log("Volume = " + volume);
+    video.volume = volume;
+
+    /*]]>*/
+</script>
+<script>
+    var v = document.getElementsByTagName("video")[0];
+
+    // v.volume = 0.2;
+    var array_videos = []; //Array with video names
+    var json_playlist; //JSon infomation
+    var index = 0; //Index of video
+    var video = document.getElementById("video"); //Html5 video element
+    // var banner = document.getElementById("banner"); //Html5 video element
+    /*$(document).ready(function() {
+
+    });*/
+
+    function readInfo() {
+        $.ajax({
+            url: "/media/list"
+        }).then(function (data) {
+            console.log(data);
+            array_videos = data;
+            // $('.greeting-id').append(data.id);
+            // $('.greeting-content').append(data.content);
+            if (array_videos && array_videos.length) {
+                video.src = '/media/video?videoName=' + array_videos[0];
+                console.log("video play")
+            } else {
+                setTimeout(readInfo, 30000);
+                // console.log($('#video').parents())
+                console.log("video liste vide")
+            }
+            // console.log($('body').parents())
+            // console.log("parent document")
+            // console.log($('#document').parents())
+            //console.log(v.parent());
+        });
+        // banner.innerText="Test de loin";
+    }
+
+    function nextVideo() {
+
+        index++;
+        if (index === array_videos.length) {
+
+            readInfo();
+            index = 0;
+
+
+
+        } else {
+            console.log("array index " + index + array_videos[index]);
+            if (array_videos && array_videos.length) {
+                video.src = '/media/video?videoName=' + array_videos[index];
+                console.log("video play")
+            } else {
+                readInfo();
+                console.log("Fermeture ou pas de  video")
+            }
+
+        }
+
+    }
+
+    var url = 'http://' + ipBorne;
+
+    // var url = 'http://192.168.0.11/media/json.txt';
+    function load() {
+        readInfo();
+        getFluxRss();
+        video.addEventListener("ended", nextVideo, false);
+        video.addEventListener("error", nextVideo, true);
+        // setInterval(startChecking, parseInt(timer_check) * 60 * 1000);
+        // checkSateBorn();
+        //loadBanner();
+        console.log('active flux ' + activeflux)
+        if (activeflux) {
+
+            var flux = document.getElementById("fluxRss")
+            flux.style.display = "block";
+            setInterval(getFluxRss, 60000 * parseInt(fluxReflesh))
+
+        } else {
+            var flux = document.getElementById("fluxRss")
+            flux.style.display = "none";
+        }
+    }
+
+
+
+
+
+    // ********************************   custom rquest *********************//
+
+    function createCORSRequest(method, url) {
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        if ("withCredentials" in xhr) {
+
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            xhr.open(method, url, true);
+
+        } else if (typeof XDomainRequest != "undefined") {
+
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+
+        } else {
+
+            // Otherwise, CORS is not supported by the browser.
+            xhr = null;
+
+        }
+        return xhr;
+    }
+
+    // var xhr = createCORSRequest('GET', url);
+
+
+    window.onload = load;
+</script>
+<script>
+    var sucess = false;
+    check = function () {
+        /*  $.cors({
+              'url': 'http://192.168.0.11/media/exemple.json',
+              'success': function (data) {
+                  // Code here!
+                  sucess = true;
+                  console.log("succes");
+              },
+              'error': function () {
+                  // Code here!
+                  console.log("erreur");
+                  sucess = false;
+              },
+              error: function (xhr, errorType, exception) {
+                  var errorMessage = exception || xhr.statusText;
+                  sucess = false
+                  //alert("Excep:: " + exception + "Status:: " + xhr.statusText);
+                  alert("Status:: " + xhr.statusText);
+              },
+              statusCode: {
+                  200: function() {
+                      console.log("200 - Success");
+                  },
+                  404: function(request, status, error) {
+                      console.log("404 - Not Found");
+                      console.log(error);
+                  },
+                  503: function(request, status, error) {
+                      console.log("503 - Server Problem");
+                      console.log(error);
+                  }
+              },
+              // console.log("statut xhr :");
+          });*/
+
+        $.extend($, {
+            Mario: function Ping(url, timeout) {
+                timeout = timeout || 1500;
+                var timer = null;
+
+                return $.Deferred(function deferred(defer) {
+
+                    var img = new Image();
+                    img.onload = function () {
+                        success("onload");
+                    };
+                    img.onerror = function () {
+                        success("onerror");
+                    };
+
+                    var start = new Date();
+                    img.src = url += ("?cache=" + +start);
+                    timer = window.setTimeout(function timer() {
+                        fail();
+                    }, timeout);
+
+                    function cleanup() {
+                        window.clearTimeout(timer);
+                        timer = img = null;
+                    }
+
+                    function success(on) {
+                        cleanup();
+                        defer.resolve(true, url, new Date() - start, on);
+                    }
+
+                    function fail() {
+                        cleanup();
+                        defer.reject(false, url, new Date() - start, "timeout");
+                    }
+
+                }).promise();
+            }
+        });
+        $.Mario(url /*, optional timeout */).done(function (success, url, time, on) {
+            video.volume = volume;
+            video.play();
+            console.log('dans la demi journée')
+            console.log("contact reussi", arguments);
+        }).fail(function (failure, url, time, on) {
+            video.volume = 0;
+            video.pause();
+            console.log("Contact échoué", arguments);
+        });
+
+    }
+    // check();
+    setInterval(check, parseInt(timer_check) * 60 * 1000);
+    connect();
+    console.log("Termine.Ressource " + sucess);
+    // or
+
+
+</script>
+</body>
+</html>

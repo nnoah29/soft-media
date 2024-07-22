@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>SOFT MEDIA CONFIGURATION</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.png" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="/favicon.png"/>
+
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../fontAwesome/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <!-- https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css -->
+    <link rel="stylesheet" href="../css/ionicons.min.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/AdminLTE.min.css"
+          th:href="@{/webjars/adminlte/2.3.7/dist/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css"
+          th:href="@{/webjars/adminlte/2.3.7/dist/css/skins/_all-skins.min.css}"/>
+
+    <link rel="stylesheet" href="style.css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .checkbox + .checkbox, .radio + .radio {
+            margin-top: 10px !important;
+        }
+    </style>
+</head>
+<body class="skin-blue fixed " data-spy="scroll" data-target="#scrollspy">
+<div class="wrapper">
+
+    <header class="main-header">
+        <!-- Logo -->
+        <!-- Logo -->
+        <a th:href="@{/config}" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>S</b>M</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b></b> SOFT MEDIA</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!--<li><a th:href="@{/demo}">Config</a></li>-->
+                    <!--<li><a href="http://almsaeedstudio.com">Almsaeed Studio</a></li>-->
+                    <!--<li><a href="http://almsaeedstudio.com/premium">Premium Templates</a></li>-->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <div class="sidebar" id="scrollspy">
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="nav sidebar-menu">
+                <!--<li class="header">TABLEAU DE BOAD</li>-->
+                <li class="active"><a href="#introduction"><i class="fa fa-circle-o"></i> Configuration</a></li>
+                <!--<li><a href="#download"><i class="fa fa-circle-o"></i> Download</a></li>
+                <li><a href="#dependencies"><i class="fa fa-circle-o"></i> Dependencies</a></li>
+                <li><a href="#advice"><i class="fa fa-circle-o"></i> Advice</a></li>
+                <li><a href="#layout"><i class="fa fa-circle-o"></i> Layout</a></li>
+                <li><a href="#adminlte-options"><i class="fa fa-circle-o"></i> Javascript Options</a></li>
+                <li class="treeview" id="scrollspy-components">
+                  <a href="javascript:void(0)"><i class="fa fa-circle-o"></i> Components</a>
+                  <ul class="nav treeview-menu">
+                    <li><a href="#component-main-header">Main Header</a></li>
+                    <li><a href="#component-sidebar">Sidebar</a></li>
+                    <li><a href="#component-control-sidebar">Control Sidebar</a></li>
+                    <li><a href="#component-info-box">Info Box</a></li>
+                    <li><a href="#component-box">Boxes</a></li>
+                    <li><a href="#component-direct-chat">Direct Chat</a></li>
+                  </ul>
+                </li>
+                <li><a href="#plugins"><i class="fa fa-circle-o"></i> Plugins</a></li>
+                <li><a href="#browsers"><i class="fa fa-circle-o"></i> Browser Support</a></li>
+                <li><a href="#upgrade"><i class="fa fa-circle-o"></i> Upgrade Guide</a></li>
+                <li><a href="#implementations"><i class="fa fa-circle-o"></i> Implementations</a></li>
+                <li><a href="#faq"><i class="fa fa-circle-o"></i> FAQ</a></li>
+                <li><a href="#license"><i class="fa fa-circle-o"></i> License</a></li>-->
+            </ul>
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper bkg">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <h1>
+                Configuration SOFT MEDIA CLIENT
+                <small>version 1.2.0</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+                <li class="active">configuration</li>
+            </ol>
+        </div>
+
+        <!-- Main content -->
+        <div class="content body">
+
+            <section id="introduction">
+                <div class="row ">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <!-- general form elements -->
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Paramètre</h3>
+                            </div>
+                            <div th:if="${param.success}" class="alert alert-info alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
+                                <h4><i class="icon fa fa-info"></i> Paramètre</h4>
+                                Sauvegarde effectué avec succès
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" th:action="@{/config}" id="demoForm"
+                                  method="post" th:object="${conf}">
+                                <div class="box-body">
+                                    <div class="form-group ">
+                                        <label for="adressServeur">Adresse du serveur </label>
+                                        <input type="text" class="form-control input-width-custom " id="adressServeur"
+                                               placeholder="Saisir l'adresse du serveur" th:field="*{urlServeurMedia}">
+                                        <span th:if="${#fields.hasErrors('urlServeurMedia')}"
+                                              th:errors="*{urlServeurMedia}"
+                                              class="help-block">Help block with error</span>
+                                    </div>
+                                    <!-- <div class="form-group ">
+                                         <label for="serverDir">Sous domaine </label>
+                                         <input type="text" class="form-control" id="serverDir"
+                                                placeholder="Sous domaine" th:field="*{serverDir}">
+                                         <span th:if="${#fields.hasErrors('serverDir')}"
+                                               th:errors="*{serverDir}" class="help-block">Help block with error</span>
+                                     </div>-->
+                                    <!-- <div class="form-group ">
+                                         <label for="serverDir">Dossier stockage media sur le serveur </label>
+                                         <input type="text" class="form-control" id="subUrlServeurMedia"
+                                                placeholder="Sous domaine" th:field="*{subUrlServeurMedia}">
+                                         <span th:if="${#fields.hasErrors('subUrlServeurMedia')}"
+                                               th:errors="*{subUrlServeurMedia}"
+                                               class="help-block">Help block with error</span>
+                                     </div>-->
+                                    <div class="form-group ">
+                                        <label for="idAgence">IP Agence </label>
+                                        <input type="text" class="form-control input-width-custom " id="idAgence"
+                                               placeholder="Sous domaine" th:field="*{idAgence}">
+                                        <span th:if="${#fields.hasErrors('idAgence')}"
+                                              th:errors="*{idAgence}" class="help-block">Help block with error</span>
+                                    </div>
+                                    <!-- <div class="form-group ">
+
+                                         <label for="serverDir">Chercher une nouvelle playlist  </label>
+                                         <input type="text" class="form-control" id="checkPlayListTime"
+                                                placeholder="Sous domaine" th:field="*{checkPlayListTime}">
+                                         <span th:if="${#fields.hasErrors('checkPlayListTime')}"
+                                               th:errors="*{checkPlayListTime}"
+                                               class="help-block">Help block with error</span>
+                                     </div>-->
+                                    <div class="form-group row">
+                                        <label class="col-md-12 center">Chercher une nouvelle playlist</label>
+                                        <div class="row">
+                                            <div class="radio col-md-6 col-lg-6 custom-ratio ">
+                                                <label> <input type="radio" name="optionsRadios"
+                                                               onchange="handleChange(event);"
+                                                               onmousedown="handleMouse(event)"
+                                                               id="optionsRadios1" th:field="*{optionTimer}"
+                                                               value="heures"
+                                                               onselect="handleClick()">Chaque jour à
+                                                </label>
+                                                <br>
+                                                <label> <input type="radio" name="optionsRadios"
+                                                               onchange="handleChange(event);"
+                                                               onmousedown="handleMouse(event)"
+                                                               id="optionsRadios2" th:field="*{optionTimer}"
+                                                               value="minute"
+                                                               onselect="handleClick();">Toutes les
+                                                </label>
+                                            </div>
+                                            <div class="radio col-md-6 col-lg-6  custom-select">
+                                                <select class="form-control" name="ckPl" th:field="*{checkPlayListTime}"
+                                                        id="ckPl"></select>
+                                                <!--<input type="text" class="form-control1 center" id="checkPlayListTime"
+                                                       placeholder="Ex 5 " style="margin-left: 40%;"
+                                                       th:field="*{checkPlayListTime}">-->
+                                                <span th:if="${#fields.hasErrors('checkPlayListTime')}"
+                                                      th:errors="*{checkPlayListTime}"
+                                                      class="help-block">Help block with error</span>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <!-- <div class="form-group ">
+                                         <label for="serverDir">Supprimer le dossier de backup tous les jours à </label>
+                                         <input type="text" class="form-control" id="delecteBackupDirTime"
+                                                placeholder="Sous domaine" th:field="*{delecteBackupDirTime}">
+                                         <span th:if="${#fields.hasErrors('delecteBackupDirTime')}"
+                                               th:errors="*{delecteBackupDirTime}" class="help-block">Help block with error</span>
+                                     </div>-->
+                                    <div class="form-group ">
+                                        <label for="activeFluxRss">Activer Flux RSS </label>
+                                        <input type="checkbox" class="form-control0 input-width-custom"
+                                               id="activeFluxRss"
+                                               placeholder="Sous domaine" th:field="*{activeFluxRss}">
+                                        <span th:if="${#fields.hasErrors('activeFluxRss')}"
+                                              th:errors="*{activeFluxRss}"
+                                              class="help-block">Help block with error</span>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="refleshFluxRss">Rafraichissement Flux RSS </label>
+                                        <select class="form-control" name="refleshFluxRss" th:field="*{refleshFluxRss}"
+                                                id="refleshFluxRss"></select>
+                                        <!-- <input type="text" class="form-control" id="refleshFluxRss"
+                                                placeholder="Sous domaine" th:field="*{refleshFluxRss}">-->
+                                        <span th:if="${#fields.hasErrors('refleshFluxRss')}"
+                                              th:errors="*{refleshFluxRss}"
+                                              class="help-block">Help block with error</span>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="volInputId">Volume <!--<i>entre 0 et 1</i>--> </label>
+                                        <input type="range" class="form-control input-width-custom "
+                                               th:value="*{volume}" th:field="*{volume}" name="volInputName"
+                                               id="volInputId" min="0" max="10"
+                                               oninput="volOutputId.value = volInputId.value" list="ticks">
+                                        <datalist id="ticks">
+                                            <option>0</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </datalist>
+                                        <output class="input-width-custom " name="volOutputName" id="volOutputId"><p
+                                                th:text="*{volume}"></p></output>
+                                        <!-- <input type="text" class="form-control" id="volume"
+                                                placeholder="Sous domaine" th:field="*{volume}">-->
+                                        <span th:if="${#fields.hasErrors('volume')}"
+                                              th:errors="*{volume}" class="help-block">Help block with error</span>
+                                    </div>
+                                    <fieldset>
+                                        <legend> Uniquement sans SOLO</legend>
+                                        <div class="form-group ">
+                                            <label for="bannerColor">Couleur de la bande <i></i> </label>
+                                            <input type="color" class="form-control input-width-custom "
+                                                   id="bannerColor"
+                                                   placeholder="Sous domaine" th:field="*{bannerColor}">
+                                            <span th:if="${#fields.hasErrors('bannerColor')}"
+                                                  th:errors="*{bannerColor}"
+                                                  class="help-block">Help block with error</span>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="bannerTextColor">Couleur du texte <i></i> </label>
+                                            <input type="color" class="form-control input-width-custom "
+                                                   id="bannerTextColor"
+                                                   placeholder="Sous domaine" th:field="*{bannerTextColor}">
+                                            <span th:if="${#fields.hasErrors('bannerTextColor')}"
+                                                  th:errors="*{bannerTextColor}"
+                                                  class="help-block">Help block with error</span>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary input-width-custom">Sauvegarder
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.box -->
+
+
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </section><!-- /#introduction -->
+
+
+        </div><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.2.0
+        </div>
+        <strong>&copy;2018 <a href="http://softinnovation-tech.com" target="_blank">SOFT-IT</a>.</strong> Tous droits
+        réservés.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <div class="pad">
+            This is an example of the control sidebar.
+        </div>
+    </aside><!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+
+</div><!-- ./wrapper -->
+
+<!-- jQuery 2.2.0 -->
+<script src="../plugins/jQuery/jQuery-2.2.0.min.js"
+        th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../bootstrap/js/bootstrap.min.js"
+        th:href="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+<!-- FastClick -->
+<script src="../plugins/fastclick/fastclick.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/app.min.js"
+        th:src="@{/webjars/adminlte/2.3.7/dist/js/app.min.js}"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="../plugins/slimScroll/jquery.slimscroll.min.js">
+
+</script>
+<script src="/js/voice.api.static.js"></script>
+<script>
+
+    // var audio = new Audio('../voice/1.wav');
+    // audio.play();
+
+    var audio = new Audio(), srcList = [], number;
+    for (var i = 0; i < 10; i++) srcList.push(i + '.wav');     //Replace
+    function playSound() {
+        number = 123;
+        console.log(number);
+        console.log(srcList);
+        audLoop(1);
+    }
+
+    function audLoop(i) {
+        console.log('come loop ' + srcList[number[i]]);
+        if (!number || i >= number.length || !srcList[number[i]]) return;
+        audio.src = srcList[number[i]];
+        console.log(audio);
+        // console.log(srcList);
+        audio.play();
+        i++;
+        if (srcList[number[i]]) {
+            audio.onended = setTimeout(audLoop.bind(null, i), 1000);   // for Delay
+        } else {
+            audio.onended = null;
+        }
+    }
+
+</script>
+<!--<script src="/js/run_prettify.js"></script>-->
+<!--<script src="/js/docs.js"></script>-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    // var hours_close_week = /*[[${hours_close_week}]]*/ 'default';
+    var checkTime = /*[[${conf.checkPlayListTime}]]*/ '2';
+    var refleshFluxRss = /*[[${conf.refleshFluxRss}]]*/ '5';
+    var selectedop = /*[[${conf.optionTimer}]]*/ 'heures';
+    // var checkTime2 = /*[[${conf}]]*/ '1';
+    // console.log(' CheckTime : '+ checkTime)
+    // console.log(selectedop)
+    /*]]>*/
+    handleClick = function () {
+        var radios = document.getElementsByName('optionsRadios');
+        var radios1 = document.getElementById('optionsRadios1');
+        // console.log('ok');
+        // console.log(radios)
+        // console.log(radios1)
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                // do whatever you want with the checked radio
+                alert(radios[i].value);
+
+                // only one radio can be logically checked, don't check the rest
+                break;
+            }
+        }
+
+    }
+    handleChange = function (e) {
+        // console.log("checked value " + e.currentTarget.value);
+        //
+        var optSelect = document.getElementById('ckPl');
+        var selected = e.currentTarget.value;
+
+
+        var maxSize;
+        if (selected == 'heures') {
+
+            // optSelect.options.removeAll();
+            $("#ckPl").empty();
+            maxSize = 24;
+            len1 = optSelect.options.length;
+            /*   for (i = 0; i <= len1; i++) {
+                   console.log(i)
+                   optSelect.options[i] = null;
+                   //or
+                   //sel1.remove(i);
+
+
+               }*/
+            for (var i = 1; i <= maxSize; i++) {
+                // console.log(i);
+                var option = document.createElement('option');
+
+                // Set the options value and text.
+                option.value = i;
+                option.innerHTML = i + ' heures';
+
+                optSelect.appendChild(option);
+
+            }
+        } else {
+            maxSize = 60;
+            $("#ckPl").empty();
+            // optSelect.options.removeAll();
+            /* len1 = optSelect.options.length;
+             for (i = 0; i <= len1; i++) {
+                 console.log(i)
+                 optSelect.options[i] = null;
+                 //or
+                 //sel1.remove(i);
+
+             }*/
+            for (var i = 1; i <= maxSize; i++) {
+                // console.log(i);
+                var option = document.createElement('option');
+
+                // Set the options value and text.
+                option.value = i;
+                option.innerHTML = i + ' minutes';
+
+                optSelect.appendChild(option);
+
+            }
+        }
+
+
+    }
+
+
+    /*  handleMouse = function (e) {
+          var radios = document.getElementsByName("optionsRadios");
+          var val;
+          for (var i = 1; i <= radios.length; i++) {
+              if (radios[i].checked) {
+                  val = radios[i].value;
+              }
+          }
+
+          // console.log("previous value " + val);
+      }*/
+    window.onload = function (ev) {
+        var optSelect = document.getElementById('ckPl');
+        var refleshFluxRssSelect = document.getElementById('refleshFluxRss');
+        var maxSize;
+        if (selectedop == 'heures') {
+            maxSize = 24;
+            for (var i = 1; i <= maxSize; i++) {
+                // console.log(i);
+                var option = document.createElement('option');
+
+                // Set the options value and text.
+                option.value = i;
+                option.innerHTML = i + ' heures';
+
+                optSelect.appendChild(option);
+
+            }
+        } else {
+            maxSize = 60;
+            for (var i = 1; i <= maxSize; i++) {
+                // console.log(i);
+                var option = document.createElement('option');
+
+                // Set the options value and text.
+                option.value = i;
+                option.innerHTML = i + ' minutes';
+
+                optSelect.appendChild(option);
+
+            }
+        }
+
+        // console.log(maxSize)
+        /*for (var i = 1; i <= maxSize; i++) {
+            // console.log(i);
+            var option = document.createElement('option');
+
+            // Set the options value and text.
+            option.value = i;
+            option.innerHTML = i;
+
+
+            optSelect.appendChild(option);
+
+        }*/
+        for (var i = 1; i <= 60; i++) {
+            // console.log(i);
+            var option = document.createElement('option');
+
+            // Set the options value and text.
+            option.value = i;
+            option.innerHTML = i + ' minutes';
+
+
+            refleshFluxRssSelect.appendChild(option);
+
+        }
+        optSelect.value = checkTime;
+        refleshFluxRssSelect.value = refleshFluxRss;
+        playSound();
+    }
+</script>
+</body>
+</html>
